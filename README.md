@@ -3,7 +3,7 @@
 ## introduction
 
 1. Make miniboard project with spring.<br>
-https://github.com/hanhunh89/spring-miniBoard<br><br>
+https://github.com/hanhunh89/spring-miniBoard-cluster<br><br>
 
 2. Install and study kubernetes<br>
 https://github.com/hanhunh89/k8s_install <br>
@@ -46,10 +46,8 @@ data:
     USE myDB;		
     CREATE TABLE post (postId INT AUTO_INCREMENT PRIMARY KEY,title VARCHAR(30),content TEXT,view INT DEFAULT 0,writer VARCHAR(30),imageName VARCHAR(50));
     CREATE TABLE user (userId VARCHAR(50) NOT NULL PRIMARY KEY,password VARCHAR(100) NOT NULL,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,auth VARCHAR(20) DEFAULT 'ROLE_USER');
-    CREATE USER 'myuser'@'%' IDENTIFIED BY '1234';  				#myuser 계정 생성 11.22.33.44 는 tomcat1 ip로 변경
-    GRANT ALL PRIVILEGES ON myDB.* TO 'myuser'@'%' WITH GRANT OPTION; 	#11.22.33.44는 tomcat1 ip로 변경
-    CREATE USER 'myuser'@'%' IDENTIFIED BY '1234';  				#myuser 계정 생성 55.55.55.55 는 tomcat2 ip로 변경
-    GRANT ALL PRIVILEGES ON myDB.* TO 'myuser'@'55.55.55.55' WITH GRANT OPTION; 	#55.55.55.55는 tomcat2 ip로 변경
+    CREATE USER 'myuser'@'%' IDENTIFIED BY '1234'; 
+    GRANT ALL PRIVILEGES ON myDB.* TO 'myuser'@'%' WITH GRANT OPTION; 	
     FLUSH PRIVILEGES;
 ```
 ```
@@ -79,7 +77,7 @@ kubectl apply -f  miniboard-mariadb-service.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mariadb-deployment
+  name: mariadb-deploy
 spec:
   replicas: 1
   selector:
@@ -112,3 +110,95 @@ spec:
 ```
 kubectl apply -f mariadb-deploy.yaml
 ```
+
+## connect mariaDB
+```
+$ kubectl get pods
+NAME                                 READY   STATUS    RESTARTS   AGE
+mariadb-deployment-b5c6669d8-75knv   1/1     Running   0          2d3h
+
+$ kubectl exec -it mariadb-deployment-b5c6669d8-75knv -- /bin/bash
+
+$ mariadb -u root -p 
+Enter password:  #insert root password(1234)
+
+MariaDB [(none)]> use myDB;
+MariaDB [myDB]> show tables;
++----------------+
+| Tables_in_myDB |
++----------------+
+| post           |
+| user           |
++----------------+
+```
+
+# make was(tomcat) pod
+```
+# tomcat-deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tomcat
+  template:
+    metadata:
+      labels:
+        app: tomcat
+    spec:
+      initContainers:
+      - name: git-clone-init-container
+        image: alpine/git:latest
+        command: ['git', 'clone', 'https://github.com/hanhunh89/spring-miniBoard-cluster.git', '/git-repo', '&&', 'wget', '-P', '/git-repo', 'https://github.com/your_key_file_url', '-O', 'key.json']
+        volumeMounts:
+        - name: git-repo-volume
+          mountPath: /git-repo
+      containers:
+      - name: tomcat-container
+        image: tomcat:9
+        volumeMounts:
+        - name: git-repo-volume
+          mountPath: /usr/local/tomcat/webapps
+      volumes:
+      - name: git-repo-volume
+        emptyDir: {}
+```# tomcat-deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tomcat
+  template:
+    metadata:
+      labels:
+        app: tomcat
+    spec:
+      initContainers:
+       - name: git-clone-init-container
+         image: alpine/git:latest
+         command: ['git', 'clone', 'https://github.com/hanhunh89/spring-miniBoard-cluster.git', '/git-repo']
+         volumeMounts:
+         - name: git-repo-volume
+           mountPath: /git-repo
+       - name: get-key-init-container
+         image: busybox
+         command: ['wget', '--header', "'Authorization:", 'token', "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'", 'https://raw.githubusercontent.com/hanhunh89/keyfile/main/key.json']
+         volumeMounts:
+         - name: git-repo-volume
+           mountPath: /git-repo
+      containers:
+      - name: tomcat-container
+        image: tomcat:9
+        volumeMounts:
+        - name: git-repo-volume
+          mountPath: /usr/local/tomcat/webapps
+      volumes:
+      - name: git-repo-volume
+        emptyDir: {}
