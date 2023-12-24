@@ -150,37 +150,6 @@ spec:
         app: tomcat
     spec:
       initContainers:
-      - name: git-clone-init-container
-        image: alpine/git:latest
-        command: ['git', 'clone', 'https://github.com/hanhunh89/spring-miniBoard-cluster.git', '/git-repo', '&&', 'wget', '-P', '/git-repo', 'https://github.com/your_key_file_url', '-O', 'key.json']
-        volumeMounts:
-        - name: git-repo-volume
-          mountPath: /git-repo
-      containers:
-      - name: tomcat-container
-        image: tomcat:9
-        volumeMounts:
-        - name: git-repo-volume
-          mountPath: /usr/local/tomcat/webapps
-      volumes:
-      - name: git-repo-volume
-        emptyDir: {}
-```# tomcat-deploy.yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: tomcat-deploy
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: tomcat
-  template:
-    metadata:
-      labels:
-        app: tomcat
-    spec:
-      initContainers:
        - name: git-clone-init-container
          image: alpine/git:latest
          command: ['git', 'clone', 'https://github.com/hanhunh89/spring-miniBoard-cluster.git', '/git-repo']
@@ -189,7 +158,7 @@ spec:
            mountPath: /git-repo
        - name: get-key-init-container
          image: busybox
-         command: ['wget', '--header', "'Authorization:", 'token', "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'", 'https://raw.githubusercontent.com/hanhunh89/keyfile/main/key.json']
+         command: ['sh', '-c', 'wget -O /git-repo/key.json --header "Authorization: token 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" https://raw.githubusercontent.com/hanhunh89/keyfile/main/key.json']
          volumeMounts:
          - name: git-repo-volume
            mountPath: /git-repo
@@ -202,3 +171,4 @@ spec:
       volumes:
       - name: git-repo-volume
         emptyDir: {}
+```
