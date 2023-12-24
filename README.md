@@ -60,7 +60,7 @@ kubectl apply -f miniboard-configmap.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: mariadb
+  name: mariadb-deployment
 spec:
   ports:
   - port: 3306
@@ -150,15 +150,15 @@ spec:
         app: tomcat
     spec:
       initContainers:
-       - name: git-clone-init-container
-         image: alpine/git:latest
-         command: ['git', 'clone', 'https://github.com/hanhunh89/spring-miniBoard-cluster.git', '/git-repo']
-         volumeMounts:
-         - name: git-repo-volume
-           mountPath: /git-repo
+      # - name: git-clone-init-container
+      #   image: alpine/git:latest
+      #   command: ['git', 'clone', 'https://github.com/hanhunh89/run_miniboard_with_k8s.git', '/git-repo']
+      #   volumeMounts:
+      #   - name: git-repo-volume
+      #     mountPath: /git-repo
        - name: get-key-init-container
          image: busybox
-         command: ['sh', '-c', 'wget -O /git-repo/key.json --header "Authorization: token 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" https://raw.githubusercontent.com/hanhunh89/keyfile/main/key.json']
+         command: ['sh', '-c', 'wget -O /git-repo/key.json --header "Authorization: token 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" https://raw.githubusercontent.com/hanhunh89/keyfile/main/key.json']
          volumeMounts:
          - name: git-repo-volume
            mountPath: /git-repo
