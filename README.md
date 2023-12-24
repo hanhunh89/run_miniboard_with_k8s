@@ -150,12 +150,12 @@ spec:
         app: tomcat
     spec:
       initContainers:
-      # - name: git-clone-init-container
-      #   image: alpine/git:latest
-      #   command: ['git', 'clone', 'https://github.com/hanhunh89/run_miniboard_with_k8s.git', '/git-repo']
-      #   volumeMounts:
-      #   - name: git-repo-volume
-      #     mountPath: /git-repo
+       - name: git-clone-init-container
+         image: alpine/git:latest
+         command: ['git', 'clone', 'https://github.com/hanhunh89/run_miniboard_with_k8s.git', '/git-repo']
+         volumeMounts:
+         - name: git-repo-volume
+           mountPath: /git-repo
        - name: get-key-init-container
          image: busybox
          command: ['sh', '-c', 'wget -O /git-repo/key.json --header "Authorization: token token_value" https://gcp_cloud_storage_key_file']
