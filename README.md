@@ -158,7 +158,7 @@ spec:
       #     mountPath: /git-repo
        - name: get-key-init-container
          image: busybox
-         command: ['sh', '-c', 'wget -O /git-repo/key.json --header "Authorization: token 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" https://raw.githubusercontent.com/hanhunh89/keyfile/main/key.json']
+         command: ['sh', '-c', 'wget -O /git-repo/key.json --header "Authorization: token token_value" https://gcp_cloud_storage_key_file']
          volumeMounts:
          - name: git-repo-volume
            mountPath: /git-repo
