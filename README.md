@@ -207,7 +207,7 @@ kind: Deployment
 metadata:
   name: tomcat-deploy
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: tomcat
@@ -225,7 +225,7 @@ spec:
            mountPath: /git-repo
        - name: get-key-init-container
          image: busybox
-         command: ['sh', '-c', 'wget -O /git-repo/key.json --header "Authorization: token token_value" https://gcp_cloud_storage_key_file']
+         command: ['sh', '-c', 'wget -O /git-repo/key.json https://gcp_cloud_storage_key_file']
          volumeMounts:
          - name: git-repo-volume
            mountPath: /git-repo
