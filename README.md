@@ -179,8 +179,28 @@ MariaDB [myDB]> show tables;
 +----------------+
 ```
 
-# make was(tomcat) pod
+# make was(tomcat) 
+## create tomcat service
 ```
+#tomcat-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat-service
+spec:
+  selector:
+    app: tomcat
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+```
+```
+kubectl apply -f tomcat-svc.yaml
+```
+
+## create tomcat deployment
+
 # tomcat-deploy.yaml
 apiVersion: apps/v1
 kind: Deployment
