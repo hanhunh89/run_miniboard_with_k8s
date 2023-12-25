@@ -200,7 +200,7 @@ kubectl apply -f tomcat-svc.yaml
 ```
 
 ## create tomcat deployment
-
+```
 # tomcat-deploy.yaml
 apiVersion: apps/v1
 kind: Deployment
