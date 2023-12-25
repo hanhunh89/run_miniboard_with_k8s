@@ -9,7 +9,7 @@ https://github.com/hanhunh89/spring-miniBoard-cluster<br><br>
 https://github.com/hanhunh89/k8s_install <br>
 https://github.com/hanhunh89/k8s_study <br>
 
-3. Now, run miniboard in kubernetes ! 
+3. Now, run miniboard in kubernetes(On-Premises)  ! 
 
 
 # make db pod. 
@@ -239,3 +239,9 @@ spec:
       - name: git-repo-volume
         emptyDir: {}
 ```
+```
+curl -L <externalIP>:30000/miniboard
+```
+end. <br>
+
+next, we will do this project in GCP and AWS. 
