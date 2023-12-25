@@ -71,6 +71,48 @@ spec:
 kubectl apply -f  miniboard-mariadb-service.yaml
 ```
 
+## create volume for db data
+```
+sudo mkdir /dbdata
+```
+```
+#pv.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: db-pv
+  labels:
+    type: local
+spec:
+  storageClassName: my-storage
+  capacity:
+    storage: 5Gi
+  accessModes:
+  - ReadWriteOnce
+  hostPath:
+    path: "/dbdata" 
+```
+```
+kubectl apply -f pv.yaml
+```
+```
+#pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db-pv-claim
+spec:
+  storageClassName: my-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+```
+```
+kubectl apply -f pvc.yaml
+```
+
 ## create mariadb deployment
 ```
 # mariadb-deploy.yaml
@@ -102,10 +144,15 @@ spec:
         volumeMounts:
         - name: mariadb-init-sql
           mountPath: /docker-entrypoint-initdb.d 
+        - name: db-storage
+          mountPath: /var/lib/mysql
       volumes:
       - name: mariadb-init-sql
         configMap:
           name: mariadb-initdb-config
+      - name: db-storage
+        persistentVolumeClaim:
+          claimName: db-pv-claim
 ```
 ```
 kubectl apply -f mariadb-deploy.yaml
