@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "rosy-drake-400902",
+  "private_key_id": "365a6efae142bf5a9611d0cd150dfee4b6fb52ec",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCP6yOcqZf2Nqcc\nXDKhFPfG5jCYgDIiA23os0N0urbsPLffBn1iSmdRi0d2CG617cPuFP1eQk1/f3de\nkjDgxREJBQ1uu1HN/P4CiPq+8EzMmeEqRJjWmGpw3uB0DBJghyX5ufc6zIeZ/Eo/\nj4rbQq4OGyn8gI0AfmGRUC3+cxProCj+2VIZLmGV/1ecAPhwd50KyaD5f6J9Cn09\nSKQ5V7/V6bSFfWCo52CgMiPTOzbe2nLLSLv0U1/Xi/YDBg9LgQNEdiQrO0uSE3aB\nQOeYwsUPF/rjyvtf/SXR7LUEbCsPV4MS2Fkr46ZNQBhNXFZpJyNDWUQQFFSa7n9L\noO2YfL0jAgMBAAECggEAEDk9wfl88m9LG6TUZkPirKQirUZM9c2ffwsaRcHjQLKV\njbQsapSgR1klPKE1uGzYWJyQH/yRwkIrFtjxs/IzJJT9DyhZpUK+8FKNuvwuxCUX\n9LetPQpgfAnRO/O9F0Q/m9etZDj4k6YU8/ZT/Q9BZ2tY1SiOpz7CnpVvIeR0xeu+\n8BDazeq98Sv54eXAHohoLH6ojnopOUUyYPqJ81c5iRwk9LfiPwrg0PRI//c1r8Ps\nKfEPoeiNpApAcrRZ3AWww7Vu5vOsuqYx7PmzG0mzRQ8OK0zNkRDQzGxdx0ed/UHU\nIO37XyhPwaRsUf0agFoHfpKdHG7aam8f2ce+nhmtaQKBgQDJV0ks7WeGZUa98TwB\nkjt3Bv31cZdrG3LcZwfUUM4MpTsib3A2ibu4293rl/qtlcEQQt6wWTEjeLsQBqz1\na4NVOhRkbz1PU4B6lB6s7PYPAWtfkTOXKd0TWihS94Yv6SsRyEtqDVrx1PCXKRK4\nELVEQmeN8zlK0u9Lu2uVAIE8KwKBgQC2/SF4+9WxJMTmUhpczxjav88rBtES3GCJ\n5bRw68iFkkKg9Nfsc0bxTC1LxaMtoJLBJGJ7orRWMDafzmgzf5glh0bMOXT+4lEm\nN+nI4ygM+UJMo8N9fQ+lbyaGzgtGLg01Rv03wXQbiusCrB/VudxgxqsFhtazUMzE\niwHhZ0fu6QKBgCXsQuQrcyxlNwXfwiWpnXm132+zjYmnCeNppJfhAG5xUMoTo1ci\najFPeGU/ov+/DTY64iblJdRAkTtbhohTT9FltyGTskCWwcRU0dJQb6gz5D2D4+u8\n/t7+REocRTIRAQPAbjPzgAW8zfQq0FPLEdlhiI+8GDZ3tIrXKlROXAkxAoGBAJoR\nWHxvtMUYSzwMxqt7ptaPBpOYgrHZoOKZ56nnq4Zi1fyFCcPIb2O8mqqgdbp15vn9\nc3nbTPEAWQ2GEQ/DD0wRsNdETTBJRr/h9dGxCEicGWlDvNXMVT8Z7Zs0oiNtpKtF\n4O9vzx1dgm9Wkts1SMqmmtnlZKHHlxCoZWXtuo/5AoGAK591zbbF44ewPveAfOkk\nukNlw5ArVDmTcBrQysl/gRa1SjFCqqQBNDIDlfkIv0/xw1Z+2U5+yY+gsMNJ8qrP\nxldsglVn1xXflmsJaQG25eeuH+k42tWmSE+2gZXRrkL3v4njyMEsJFdwOTwQ+I4v\n9bjHyKxfgjBH+Xcg2oqDoiE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "miniboard-admin@rosy-drake-400902.iam.gserviceaccount.com",
+  "client_id": "104618978833432889012",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/miniboard-admin%40rosy-drake-400902.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
