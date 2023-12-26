@@ -158,7 +158,7 @@ spec:
 kubectl apply -f mariadb-deploy.yaml
 ```
 
-## connect mariaDB
+## check mariaDB running
 ```
 $ kubectl get pods
 NAME                                 READY   STATUS    RESTARTS   AGE
