@@ -12,7 +12,7 @@ https://github.com/hanhunh89/k8s_study <br>
 3. Now, run miniboard in kubernetes(On-Premises)  !
 
 4. if you want kubernes engine in google gcp, go to <br>
-   
+   https://github.com/hanhunh89/run_miniboard_with_k8s/blob/main/README_GCP.md
 
 
 # make db pod. 
