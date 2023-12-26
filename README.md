@@ -180,23 +180,24 @@ MariaDB [myDB]> show tables;
 ```
 
 # make was(tomcat) 
-## create tomcat service
+## create tomcat loadbalancing
 ```
-#tomcat-svc.yaml
+#tomcat-lb.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: tomcat-service
+  name: tomcat-lb
 spec:
   selector:
     app: tomcat
   ports:
-    - protocol: TCP
-      port: 8080
+    - port: 8080
       targetPort: 8080
+      nodePort: 30000
+  type: LoadBalancer
 ```
 ```
-kubectl apply -f tomcat-svc.yaml
+kubectl apply -f tomcat-lb.yaml
 ```
 
 ## create tomcat deployment
