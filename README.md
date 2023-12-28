@@ -11,8 +11,6 @@ https://github.com/hanhunh89/k8s_study <br>
 
 3. Now, run miniboard in kubernetes(On-Premises)  !
 
-4. if you want kubernes engine in google gcp, go to <br>
-   https://github.com/hanhunh89/run_miniboard_with_k8s/blob/main/README_GCP.md
 
 
 # make db pod. 
@@ -194,9 +192,9 @@ spec:
   selector:
     app: tomcat
   ports:
-    - port: 8080
+    - port: 8080 # in GCP or AWS, use 80.
       targetPort: 8080
-      nodePort: 30000
+      nodePort: 30000  # in onpromise env, we can't have externalIP in loadbalance. so, we use nodeport. in GCP or AWS, we don't need nodeport                       
   type: LoadBalancer
 ```
 ```
@@ -244,7 +242,8 @@ spec:
         emptyDir: {}
 ```
 ```
-curl -L <externalIP>:30000/miniboard
+curl -L <externalIP>:30000/miniboard #onpromise
+curl -L <externalIP>/miniboard # GCP, AWS
 ```
 end. <br>
 
