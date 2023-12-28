@@ -225,7 +225,7 @@ spec:
          volumeMounts:
          - name: git-repo-volume
            mountPath: /git-repo
-       - name: get-key-init-container
+       - name: get-key-init-container  # if you have key.json in git, you don't need it. 
          image: busybox
          command: ['sh', '-c', 'wget -O /git-repo/key.json https://gcp_cloud_storage_key_file']
          volumeMounts:
