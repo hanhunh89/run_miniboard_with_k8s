@@ -225,20 +225,24 @@ spec:
          volumeMounts:
          - name: git-repo-volume
            mountPath: /git-repo
-       - name: get-key-init-container  # if you have key.json in git, you don't need it. 
-         image: busybox
-         command: ['sh', '-c', 'wget -O /git-repo/key.json https://gcp_cloud_storage_key_file']
+       - name: get-key-init-container  # if you have key.json in git, you don't need it.
+         image: alpine/git:latest
+         command: ['sh', '-c', 'git clone https://{github token}@github.com/hanhunh89/keyfile.git /git-repo2'] #cloud storage key file pulling
          volumeMounts:
-         - name: git-repo-volume
-           mountPath: /git-repo
+         - name: git-repo-volume-two
+           mountPath: /git-repo2
       containers:
       - name: tomcat-container
         image: tomcat:9
         volumeMounts:
         - name: git-repo-volume
           mountPath: /usr/local/tomcat/webapps
+        - name: git-repo-volume-two
+          mountPath: /usr/local/tomcat/keys
       volumes:
       - name: git-repo-volume
+        emptyDir: {}
+      - name: git-repo-volume-two
         emptyDir: {}
 ```
 ```
